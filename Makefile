@@ -39,10 +39,11 @@ WAVE_BMP := $(addprefix images/,$(addsuffix .bmp,$(WAVE_FRAMES)))
 all: $(CHRUTIL) waves.chr bin/ bin/$(NAME).nes
 
 clean:
-	-rm bin/*.nes bin/*.o bin/*.dbg bin/*.map
+	-rm bin/*.nes bin/*.o bin/*.dbg bin/*.map bin/*.cdl *.chr
 
 cleanall: clean
-	-rm *.chr images/*.bmp
+	-rm images/*.bmp
+	-$(MAKE) -C go-nes/ clean
 
 bin/:
 	-mkdir bin/
