@@ -260,6 +260,8 @@ RESET:
     bit $2002
     bpl :-
 
+    jsr MMC1_Init
+
     ; Clear attribute table
     ldx #64
     bit $2000
@@ -314,8 +316,6 @@ RESET:
     lda #$88
     sta PpuControl
     sta $2000
-
-    jsr MMC1_Init
 
     lda #$00
     jsr Waves_LoadFrame
@@ -538,6 +538,10 @@ WaitForNMI:
     rts
 
 MMC1_Init:
+    ; reset mapper
+    lda #$80
+    sta $8000
+
     ; Set flag
     jsr MMC1_Select_Vert
 
