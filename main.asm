@@ -308,6 +308,9 @@ RESET:
     dex
     bne :-
 
+    lda #1
+    sta FrameCount
+
     lda #$88
     sta PpuControl
     sta $2000
