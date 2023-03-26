@@ -1,12 +1,8 @@
 
-# TODO: don't do this
-CA = ../../cc65/bin/ca65
-LD = ../../cc65/bin/ld65
-
 CHRUTIL = go-nes/bin/chrutil
 
-CAFLAGS = -g -t nes --color-messages
-LDFLAGS = -C $(NESCFG) --dbgfile bin/$(NAME).dbg -m bin/$(NAME).map --color-messages
+CAFLAGS = -g -t nes
+LDFLAGS = -C $(NESCFG) --dbgfile bin/$(NAME).dbg -m bin/$(NAME).map
 
 # Mapper configuration for linker
 NESCFG = nes_snrom.cfg
@@ -52,10 +48,10 @@ waves.chr: $(WAVE_BMP)
 	$(CHRUTIL) -o $@ $^
 
 bin/main.o: $(SOURCES) $(CHR)
-	$(CA) $(CAFLAGS) -o $@ main.asm
+	ca65 $(CAFLAGS) -o $@ main.asm
 
 bin/$(NAME).nes: bin/main.o
-	$(LD) $(LDFLAGS) -o $@ $^
+	ld65 $(LDFLAGS) -o $@ $^
 
 images/%.bmp: images/%.aseprite
 	aseprite -b $< --save-as $@
